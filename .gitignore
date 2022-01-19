@@ -2,6 +2,7 @@
 wordle/game_board/
 *.bak
 scratchpads/
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
