@@ -85,7 +85,9 @@ def lock_in_index(characters, indices, words):
 
         raise IndexError("Number of characters should equal number of indexes")
     return [
-        word for word in words if all(word[idx] == char for char, idx in zip(characters, indices))
+        word
+        for word in words
+        if all(word[idx] == char for char, idx in zip(characters, indices))
     ]
 
 

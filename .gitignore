@@ -1,5 +1,5 @@
 # Custom 
-wordle/game_board/
+boredle/game_board/
 *.bak
 scratchpads/
 .vscode/
