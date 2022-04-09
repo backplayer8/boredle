@@ -3,6 +3,7 @@ boredle/game_board/
 *.bak
 scratchpads/
 .vscode/
+extras/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
