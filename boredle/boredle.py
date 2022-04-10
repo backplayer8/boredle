@@ -17,7 +17,7 @@ class Boredle(object):
         sixth_guess: Union[str, None]=None,
     ):
         self._wordlist = [word for word in wordlist if len(word) == 5]
-        self.first_guess = self.guess() if first_guess is None else first_guess
+        self.first_guess = choice(self._wordlist) if first_guess is None else first_guess
         self.second_guess = second_guess
         self.third_guess = third_guess
         self.fourth_guess = fourth_guess
@@ -43,25 +43,27 @@ class Boredle(object):
             )"""
 
     def guess(self, _guess:Union[str, None]=None) -> str:
+        _guess = choice(self._wordlist)
+        self.previous_guess = _guess
         match None:
             case self.first_guess:
-                self.first_guess = choice(self._wordlist)
+                self.first_guess = _guess
                 return self.first_guess
             case self.second_guess:
-                self.second_guess = choice(self._wordlist)
+                self.second_guess = _guess
                 return self.second_guess
             case self.third_guess:
-                self.third_guess = choice(self._wordlist)
+                self.third_guess = _guess
                 return self.third_guess
             case self.fourth_guess:
-                self.fourth_guess = choice(self._wordlist)
+                self.fourth_guess = _guess
                 return self.fourth_guess
             case self.fifth_guess:
-                self.fifth_guess = choice(self._wordlist)
+                self.fifth_guess = _guess
                 return self. fifth_guess
             case self.sixth_guess:
                 print("Final Guess!")
-                self.sixth_guess = choice(self._wordlist)
+                self.sixth_guess = _guess
                 return self.sixth_guess
             case _:
                 print("Game Over!")
@@ -82,12 +84,20 @@ class Boredle(object):
         else:
             return self.guess()
 
+    @property
+    def previous_guess(self):
+        return self._previous_guess
+
+    @previous_guess.setter
+    def previous_guess(self, guess):
+        self._previous_guess = guess
+
     def redo_guess(self, _guess):
         if _guess is not None:
             pass
 
     def redo_guess(self, criteria=None, guess=None):
-        match type(str):
+        match self.previous_guess:
             case self.sixth_guess:
                 self.sixth_guess = None
             case self.fifth_guess:
@@ -102,7 +112,7 @@ class Boredle(object):
                 self.first_guess = None
             case _:
                 raise ValueError("criteria must be None or valid state for a string")
-        
+        print(self.guess(guess))
 
     @property
     def words(self):
@@ -142,7 +152,7 @@ class Boredle(object):
         return self._correct_letters
 
     @correct_letters.setter
-    def correct_characters(self, chars_idxs):
+    def correct_letters(self, chars_idxs):
         try:
             chars, indexes = chars_idxs
         except ValueError as err:
